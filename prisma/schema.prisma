@@ -6,6 +6,37 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  image String?
+  email String? @unique
+  emailVerified DateTime?
+  hashedPassword  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  favorites String[]  @db.ObjectId
+  accounts Account[]
+}
+
+model Account {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  type String
+  name  String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Movie {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  videoUrl String
+  thumbnailUrl  String
+  genre String
+  duration String
 }

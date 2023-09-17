@@ -2,12 +2,28 @@
 
 import Input from "@/components/Input";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+import axios from "axios"
 
 const SignUpPage = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("")
+
+  const register = useCallback(async () => {
+    try {
+      await axios.post("/api/register", {
+        email,
+        password
+      })
+
+      router.push("/login")
+    } catch (error) {
+      console.log(error)
+      setError("Email is taken.")
+    }
+  }, [email, password])
 
   return (
     <div className="relative h-full w-full bg-[url('/hero.jpg')] bg-no-repeat bg-fixed bg-center bg-cover">
@@ -26,6 +42,9 @@ const SignUpPage = () => {
                 type="email"
                 value={email}
               />
+              {error && (
+                <h1 className="text-red-600">Email is taken.</h1>
+              )}
               <Input
                 label="Password"
                 id="password"
@@ -34,7 +53,9 @@ const SignUpPage = () => {
                 value={password}
               />
             </div>
-            <button className="bg-red-600 font-semibold py-3 mt-8 rounded-md text-white w-full">
+            <button 
+            onClick={register}
+            className="bg-red-600 font-semibold py-3 mt-8 rounded-md text-white w-full">
               Create Account
             </button>
             <div className="flex mt-12">
