@@ -35,14 +35,14 @@ const Banner: React.FC = () => {
         />
       </div>
       <div className="absolute top-[40%] mx-16">
-        <p className="text-white text-1xl md:text-3xl lg:text-6xl drop-shadow-xl font-bold w-[100%] h-full ">
+        <p className="text-white text-1xl md:text-3xl lg:text-5xl drop-shadow-xl font-bold w-[100%] h-full ">
           {random?.title}
         </p>
         <p className="text-white mt-3 text-[10px] md:text-lg drop-shadow-lg">
           {random?.overview}
         </p>
-        <div className="flex  items-center mt-5 gap-2 md:mt-8 ">
-          <button className="flex h-10 w-20 rounded-[4px]  bg-white  items-center px-2 hover:opacity-75">
+        <div className="flex relative items-center gap-2 md:mt-8 z-30">
+          <button className="flex h-10 w-20 rounded-[4px] bg-white  items-center px-2 hover:opacity-75">
             <BsFillPlayFill className="w-8 h-8" />
             <p className="font-semibold text-xs">Play</p>
           </button>
@@ -52,7 +52,7 @@ const Banner: React.FC = () => {
           </button>
         </div>
       </div>
-      <div className="absolute w-full h-32 bg-gradient-to-t from-zinc-900 to-transparent bottom-0 z-20"/>
+      <div className="absolute w-full h-20 bg-gradient-to-t from-zinc-900 to-transparent bottom-0 z-20"/>
     </div>
   );
 };

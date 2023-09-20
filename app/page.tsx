@@ -26,10 +26,10 @@ export default async function Home() {
     <>
       <Navbar />
       <Banner />
-      <Row title="Trending Movies" data={trendingMovies}/>
-      <Row title="Popular Movies" data={popularMovies}/>
-      <Row title="Trending Shows" data={trendingShows}/>
-      <Row title="Popular Shows" data={popularShows}/>
+      <Row title="Trending Movies" id="Trending Movies" data={trendingMovies}/>
+      <Row title="Popular Movies" id="Popular Movies" data={popularMovies}/>
+      <Row title="Trending Shows" id="Trending Shows" data={trendingShows}/>
+      <Row title="Popular Shows" id="Popular Shows" data={popularShows}/>
     </>
   );
 }

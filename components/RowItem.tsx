@@ -8,7 +8,7 @@ interface RowItemProps {
 
 const RowItem: React.FC<RowItemProps> = ({ data }) => {
   return (
-    <div className="mt-4 relative flex h-[12vh] min-w-[180px] md:min-w-[220px] md:h-36 lg:min-w-[280px] lg:h-48 hover:scale-110 transform duration-500 cursor-pointer hover:z-[998] transition-all hover:mx-2">
+    <div className="mt-4 relative flex h-[24vh] min-w-[180px] md:min-w-[220px] md:h-36 lg:min-w-[280px] lg:h-48 hover:scale-110 transform duration-500 cursor-pointer hover:z-[19] transition-all hover:mx-2">
       <img
         alt="thumbnail picture"
         className="object-cover rounded-md"
