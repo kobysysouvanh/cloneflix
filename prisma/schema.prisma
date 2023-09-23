@@ -18,25 +18,7 @@ model User {
   hashedPassword  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  favorites String[]  @db.ObjectId
-  accounts Account[]
+  favorites Int[]
 }
 
-model Account {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @db.ObjectId
-  type String
-  name  String
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Movie {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  title String
-  description String
-  videoUrl String
-  thumbnailUrl  String
-  genre String
-  duration String
-}

@@ -2,11 +2,11 @@
 
 import Banner from "@/components/Banner";
 import Navbar from "@/components/Navbar";
+import Row from "@/components/Row";
 import { getPopularMovies, getPopularShows, getTrendingMovies, getTrendingShows } from "@/utils/themoviedb";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "./api/auth/[...nextauth]/route";
-import Row from "@/components/Row";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -15,7 +15,6 @@ export default async function Home() {
   const popularMovies = await getPopularMovies()
   const trendingShows = await getTrendingShows()
   const popularShows = await getPopularShows()
-
 
 
   if (!session) {

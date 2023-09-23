@@ -23,8 +23,8 @@ const Banner: React.FC = () => {
   const random = data[Math.floor(Math.random() * data.length)];
 
   return (
-    <div className="relative h-[65vh] transition-all">
-      <div className="absolute top-0 left-0 h-[65vh] w-screen -z-10 brightness-50">
+    <div className="relative h-[85vh] transition-all">
+      <div className="absolute top-0 left-0 h-[85vh] w-screen -z-10 brightness-50">
         <Image
           src={`https://image.tmdb.org/t/p/original${
             random?.backdrop_path || random?.poster_path
@@ -41,7 +41,7 @@ const Banner: React.FC = () => {
         <p className="text-white mt-3 text-[10px] md:text-lg drop-shadow-lg">
           {random?.overview}
         </p>
-        <div className="flex relative items-center gap-2 md:mt-8 z-30">
+        <div className="flex relative mt-2 items-center gap-2 md:mt-8 z-30">
           <button className="flex h-10 w-20 rounded-[4px] bg-white  items-center px-2 hover:opacity-75">
             <BsFillPlayFill className="w-8 h-8" />
             <p className="font-semibold text-xs">Play</p>
