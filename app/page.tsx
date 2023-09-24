@@ -24,7 +24,7 @@ export default async function Home() {
   return (
     <>
       <Navbar />
-      <Banner />
+      <Banner data={trendingMovies}/>
       <Row title="Trending Movies" id="Trending Movies" data={trendingMovies}/>
       <Row title="Popular Movies" id="Popular Movies" data={popularMovies}/>
       <Row title="Trending Shows" id="Trending Shows" data={trendingShows}/>

@@ -1,13 +1,13 @@
 
 
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import { Movie } from "@/typings";
+import { Item } from "@/typings";
 import RowClient from "./RowClient";
 
 
 interface RowProps {
   title: string;
-  data: Movie[];
+  data: Item[];
   id: string;
 }
 

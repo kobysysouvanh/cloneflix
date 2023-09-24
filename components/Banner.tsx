@@ -1,33 +1,43 @@
 "use client";
 
-import { Movie } from "@/typings";
+import { Item } from "@/typings";
 import { getTrendingMovies } from "@/utils/themoviedb";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { BsFillPlayFill } from "react-icons/bs";
+import Loading from "./Loading";
 
-const Banner: React.FC = () => {
-  const [data, setData] = useState<any[]>([]);
+interface BannerProps {
+  data: Item[]
+}
+
+const Banner: React.FC<BannerProps> = ({ data }) => {
+  const [isLoading, setIsLoading] = useState(true)
+  const [banner, setBanner] = useState<Item>()
 
   useEffect(() => {
-    async function getData() {
-      const trendingMovies = await getTrendingMovies();
+    setIsLoading(true)
 
-      setData(trendingMovies);
-    }
+    setBanner(data[Math.floor(Math.random() * data.length)])
 
-    getData();
-  }, []);
+    setIsLoading(false)
+  },[])
 
-  const random = data[Math.floor(Math.random() * data.length)];
+  if (isLoading) {
+    return (
+      <Loading/>
+    )
 
+  }
+
+  
   return (
-    <div className="relative h-[85vh] transition-all">
-      <div className="absolute top-0 left-0 h-[85vh] w-screen -z-10 brightness-50">
+    <div className="relative h-[95vh] transition-all">
+      <div className="absolute top-0 left-0 h-[95vh] w-screen -z-10 brightness-50">
         <Image
           src={`https://image.tmdb.org/t/p/original${
-            random?.backdrop_path || random?.poster_path
+            banner?.backdrop_path || banner?.poster_path
           }`}
           alt="banner"
           fill
@@ -36,10 +46,10 @@ const Banner: React.FC = () => {
       </div>
       <div className="absolute top-[40%] mx-16">
         <p className="text-white text-1xl md:text-3xl lg:text-5xl drop-shadow-xl font-bold w-[100%] h-full ">
-          {random?.title}
+          {banner?.title}
         </p>
         <p className="text-white mt-3 text-[10px] md:text-lg drop-shadow-lg">
-          {random?.overview}
+          {banner?.overview}
         </p>
         <div className="flex relative mt-2 items-center gap-2 md:mt-8 z-30">
           <button className="flex h-10 w-20 rounded-[4px] bg-white  items-center px-2 hover:opacity-75">

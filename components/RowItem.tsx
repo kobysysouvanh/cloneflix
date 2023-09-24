@@ -1,6 +1,6 @@
 
 import useFavorite from "@/hooks/useFavorite";
-import { Movie, SafeUser } from "@/typings";
+import { Item, SafeUser } from "@/typings";
 import React from "react";
 import {
   AiOutlineCheckCircle,
@@ -9,7 +9,7 @@ import {
 } from "react-icons/ai";
 
 interface RowItemProps {
-  data: Movie;
+  data: Item;
   currentUser: SafeUser | null
 }
 
