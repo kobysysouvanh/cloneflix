@@ -2,12 +2,12 @@
 
 import RowItem from "./RowItem";
 import { BsChevronCompactRight, BsChevronCompactLeft } from "react-icons/bs";
-import { Item, SafeUser } from "@/typings";
+import { Media, SafeUser } from "@/typings";
 import { User } from "@prisma/client"
 
 interface RowClientProps {
   title: string;
-  data: Item[];
+  data: Media[];
   id: string;
   currentUser: SafeUser | null;
 }

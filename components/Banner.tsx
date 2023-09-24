@@ -1,6 +1,6 @@
 "use client";
 
-import { Item } from "@/typings";
+import { Media } from "@/typings";
 import { getTrendingMovies } from "@/utils/themoviedb";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -9,12 +9,12 @@ import { BsFillPlayFill } from "react-icons/bs";
 import Loading from "./Loading";
 
 interface BannerProps {
-  data: Item[]
+  data: Media[]
 }
 
 const Banner: React.FC<BannerProps> = ({ data }) => {
   const [isLoading, setIsLoading] = useState(true)
-  const [banner, setBanner] = useState<Item>()
+  const [banner, setBanner] = useState<Media>()
 
   useEffect(() => {
     setIsLoading(true)

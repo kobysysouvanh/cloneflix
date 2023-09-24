@@ -5,7 +5,7 @@ export interface Genre {
   name: string;
 }
 
-export interface Item {
+export interface Media {
   adult?: boolean;
   backdrop_path?: string;
   id: number;
