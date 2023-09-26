@@ -13,9 +13,6 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   
 
-
-  
-
   const login = async () => {
 
     const signInResponse = await signIn("credentials", {

@@ -1,6 +1,6 @@
-
 import useFavorite from "@/hooks/useFavorite";
 import { Media, SafeUser } from "@/typings";
+import { useRouter } from "next/navigation";
 import React from "react";
 import {
   AiOutlineCheckCircle,
@@ -10,20 +10,30 @@ import {
 
 interface RowItemProps {
   data: Media;
-  currentUser: SafeUser | null
+  type: string
+  currentUser: SafeUser | null;
 }
 
-const RowItem: React.FC<RowItemProps> =  ({ data, currentUser }) => {
-  const { id } = data
-  const { hasFavorited, toggleFavorite } = useFavorite({ 
+const RowItem: React.FC<RowItemProps> = ({ data, type, currentUser }) => {
+  const router = useRouter()
+  const { id, media_type } = data;
+  const { hasFavorited, toggleFavorite } = useFavorite({
     itemId: id,
-    currentUser
-  })
-  
+    currentUser,
+  });
+
+  const handleOnClick = () => {
+    if (type === "movie") {
+      router.push(`/media/movie/${id}`)
+    }
+    else {
+      router.push(`/media/tv/${id}`)
+    }
+  }
 
 
   return (
-    <div className="mt-4 relative flex h-[24vh] group/item min-w-[180px] md:min-w-[240px] md:h-40 lg:min-w-[280px] lg:h-48 hover:scale-110 transform duration-500 cursor-pointer hover:z-[19] transition-all ">
+    <div onClick={handleOnClick} className="mt-4 relative flex h-[24vh] group/item min-w-[180px] md:min-w-[240px] md:h-40 lg:min-w-[280px] lg:h-48 hover:scale-110 transform duration-500 cursor-pointer hover:z-[19] transition-all ">
       <img
         alt="thumbnail picture"
         className="object-cover rounded-md"
@@ -33,9 +43,7 @@ const RowItem: React.FC<RowItemProps> =  ({ data, currentUser }) => {
         <button className="hover:text-black/60">
           <AiOutlinePlayCircle className="h-10 w-10" />
         </button>
-        <div 
-        onClick={toggleFavorite}
-        className="hover:text-black/60">
+        <div onClick={toggleFavorite} className="hover:text-black/60">
           {hasFavorited ? (
             <AiOutlineCheckCircle className="h-10 w-10" />
           ) : (

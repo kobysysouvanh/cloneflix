@@ -16,6 +16,33 @@ const Navbar = () => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
 
+  const routes = [
+    {
+      label: "Home",
+      href: "/"
+    },
+    {
+      label: "TV Shows",
+      href: "/tvshows"
+    },
+    {
+      label: "Movies",
+      href: "/movies"
+    },
+    {
+      label: "New & Popular",
+      href: "/new"
+    },
+    {
+      label: "My List",
+      href: "/list"
+    },
+    {
+      label: "Browse by Language",
+      href: "/language"
+    }
+  ]
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY >= NavbarBackground) {
@@ -41,7 +68,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="w-full fixed z-40">
+    <nav className="w-screen fixed z-40">
       <div
         className={`p-4 md:px-16 flex items-center transition duration-300 ${
           showBackground ? "bg-zinc-900" : ""
@@ -49,12 +76,9 @@ const Navbar = () => {
       >
         <img src="/logo.png" alt="logo" className="w-[18vw] max-w-[120px]" />
         <div className="ml-8 gap-5 hidden lg:flex lg:text-sm">
-          <NavbarItem label="Home" />
-          <NavbarItem label="TV Shows" />
-          <NavbarItem label="Movies" />
-          <NavbarItem label="New & Popular" />
-          <NavbarItem label="My List" />
-          <NavbarItem label="Browse by Languages" />
+          {routes.map((route) => (
+            <NavbarItem key={route.href} label={route.label} href={route.href}/>
+          ))}
         </div>
         <div
           className="ml-8 flex items-center gap-2 cursor-pointer transition lg:hidden"

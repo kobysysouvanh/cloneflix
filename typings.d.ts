@@ -10,6 +10,7 @@ export interface Media {
   backdrop_path?: string;
   id: number;
   title?: string;
+  name?: string
   original_language?: string[];
   original_name?: string;
   overview?: string;

@@ -1,19 +1,19 @@
 "use client";
 
-import RowItem from "./RowItem";
-import { BsChevronCompactRight, BsChevronCompactLeft } from "react-icons/bs";
 import { Media, SafeUser } from "@/typings";
-import { User } from "@prisma/client"
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import RowItem from "./RowItem";
 
 interface RowClientProps {
   title: string;
   data: Media[];
   id: string;
+  type: string
   currentUser: SafeUser | null;
 }
 
-const RowClient: React.FC<RowClientProps> = ({ title, data, id, currentUser }) => {
-    const slideLeft = () => {
+const RowClient: React.FC<RowClientProps> = ({ title, data, id, type, currentUser }) => {
+  const slideLeft = () => {
         var slider = document.getElementById(id);
         slider!.scrollLeft -= 1100;
       };
@@ -40,7 +40,7 @@ const RowClient: React.FC<RowClientProps> = ({ title, data, id, currentUser }) =
               className="flex items-center h-64 md:mx-10 w-full gap-3 overflow-x-scroll scroll whitespace-nowrap scrollbar-hide scroll-smooth"
             >
               {data.map((item) => (
-                <RowItem key={item.id} data={item} currentUser={currentUser} />
+                <RowItem key={item.id} data={item} currentUser={currentUser} type={type} />
               ))}
             </div>
             <button

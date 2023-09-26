@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import getCurrentUser from "../../actions/getCurrentUser";
+import getCurrentUser from "../../../actions/getCurrentUser";
 import prismadb from "@/lib/prismadb";
 
 export async function POST(req: Request) {
@@ -30,25 +30,25 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  const currentUser = await getCurrentUser()
-  const body = await req.json()
-  const { itemId } = body
+  const currentUser = await getCurrentUser();
+  const body = await req.json();
+  const { itemId } = body;
 
   if (!currentUser) return NextResponse.error();
-  if (!itemId) throw new Error("Invalid ID")
+  if (!itemId) throw new Error("Invalid ID");
 
-  let favorites = [...(currentUser.favorites || [])]
+  let favorites = [...(currentUser.favorites || [])];
 
-  favorites = favorites.filter((id) => id !== itemId)
+  favorites = favorites.filter((id) => id !== itemId);
 
   const user = await prismadb.user.update({
     where: {
-      id: currentUser.id  
+      id: currentUser.id,
     },
     data: {
-      favorites
-    }
-  })
+      favorites,
+    },
+  });
 
-  return NextResponse.json(user)
+  return NextResponse.json(user);
 }

@@ -7,33 +7,31 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { BsFillPlayFill } from "react-icons/bs";
 import Loading from "./Loading";
+import Navbar from "./Navbar";
 
 interface BannerProps {
-  data: Media[]
+  data: Media[];
 }
 
 const Banner: React.FC<BannerProps> = ({ data }) => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [banner, setBanner] = useState<Media>()
+  const [isLoading, setIsLoading] = useState(true);
+  const [banner, setBanner] = useState<Media>();
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
 
-    setBanner(data[Math.floor(Math.random() * data.length)])
+    setBanner(data[Math.floor(Math.random() * data.length)]);
 
-    setIsLoading(false)
-  },[])
+    setIsLoading(false);
+  }, []);
 
   if (isLoading) {
-    return (
-      <Loading/>
-    )
-
+    return <Loading />;
   }
 
-  
   return (
     <div className="relative h-[95vh] transition-all">
+      <Navbar/>
       <div className="absolute top-0 left-0 h-[95vh] w-screen -z-10 brightness-50">
         <Image
           src={`https://image.tmdb.org/t/p/original${
@@ -46,7 +44,7 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
       </div>
       <div className="absolute top-[40%] mx-16">
         <p className="text-white text-1xl md:text-3xl lg:text-5xl drop-shadow-xl font-bold w-[100%] h-full ">
-          {banner?.title}
+          {banner?.title || banner?.name}
         </p>
         <p className="text-white mt-3 text-[10px] md:text-lg drop-shadow-lg">
           {banner?.overview}
@@ -62,9 +60,8 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
           </button>
         </div>
       </div>
-      <div className="absolute w-full h-20 bg-gradient-to-t from-zinc-900 to-transparent bottom-0 z-20"/>
+      <div className="absolute w-full h-28 bg-gradient-to-t from-zinc-900 to-transparent -bottom-1 z-20" />
     </div>
   );
 };
-
 export default Banner;
