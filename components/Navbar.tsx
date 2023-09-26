@@ -8,6 +8,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import AccountMenu from "./AccountMenu";
 import MobileMenu from "./MobileMenu";
 import NavbarItem from "./NavbarItem";
+import Link from "next/link";
 
 const NavbarBackground = 66;
 
@@ -19,29 +20,29 @@ const Navbar = () => {
   const routes = [
     {
       label: "Home",
-      href: "/"
+      href: "/",
     },
     {
       label: "TV Shows",
-      href: "/tvshows"
+      href: "/tvshows",
     },
     {
       label: "Movies",
-      href: "/movies"
+      href: "/movies",
     },
     {
       label: "New & Popular",
-      href: "/new"
+      href: "/new",
     },
     {
       label: "My List",
-      href: "/list"
+      href: "/list",
     },
     {
       label: "Browse by Language",
-      href: "/language"
-    }
-  ]
+      href: "/language",
+    },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,10 +75,16 @@ const Navbar = () => {
           showBackground ? "bg-zinc-900" : ""
         }`}
       >
-        <img src="/logo.png" alt="logo" className="w-[18vw] max-w-[120px]" />
+        <Link href="/">
+          <img src="/logo.png" alt="logo" className="w-[18vw] max-w-[120px]" />
+        </Link>
         <div className="ml-8 gap-5 hidden lg:flex lg:text-sm">
           {routes.map((route) => (
-            <NavbarItem key={route.href} label={route.label} href={route.href}/>
+            <NavbarItem
+              key={route.href}
+              label={route.label}
+              href={route.href}
+            />
           ))}
         </div>
         <div

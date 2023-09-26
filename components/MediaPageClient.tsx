@@ -4,17 +4,22 @@ import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player/youtube";
 import Loading from "./Loading";
 import Image from "next/image";
+import { SafeUser } from "@/typings";
+import useFavorite from "@/hooks/useFavorite";
+import FavoriteButton from "./FavoriteButton";
 
 interface MediaPageClientProps {
   media: any;
   trailer: any;
   mediaType: string;
+  currentUser: SafeUser | null
 }
 
 const MediaPageClient: React.FC<MediaPageClientProps> = ({
   media,
   trailer,
   mediaType,
+  currentUser
 }) => {
   const [hasWindow, setHasWindow] = useState(false);
 
@@ -22,17 +27,17 @@ const MediaPageClient: React.FC<MediaPageClientProps> = ({
     if (typeof window !== "undefined") {
       setHasWindow(true);
     }
+
+    
   }, []);
 
   if (!hasWindow) {
     return <Loading />;
   }
 
-  console.log(media);
-
   return (
     <div className="flex flex-col">
-      <div className="flex w-full h-[85vh] mt-10 justify-center items-center">
+      <div className="flex w-screen h-[85vh] mt-10 justify-center items-center">
         <Image
           className="-z-10 opacity-20"
           src={`https://image.tmdb.org/t/p/original${
@@ -59,18 +64,28 @@ const MediaPageClient: React.FC<MediaPageClientProps> = ({
           alt="poster image"
           className="rounded-lg object-contain hidden sm:inline"
         />
-        <div className="flex-col px-4 space-y-2 items-center">
-          <div className="flex space-x-3">
-            <h1 className="text-white text-md sm:text-2xl">{media.title || media.name}</h1>
-            <div className="flex text-sm sm:text-lg space-x-1 text-white items-center">
+        <div className="flex-col px-4 space-y-2">
+          <div className="flex space-x-3 text-white items-center">
+            <h1 className="text-md sm:text-2xl">{media.title || media.name}</h1>
+            <div className="flex text-sm sm:text-lg space-x-1 items-center">
               <p className="sm:text-xl">★</p>
               <p>{media.vote_average}</p>
             </div>
+            <FavoriteButton mediaId={media.id} currentUser={currentUser}/>
           </div>
+          {media.number_of_seasons ? (
+            <div className="flex text-white opacity-70 items-center space-x-2 text-xs sm:text-base lg:text-lg">
+              <p>{media.number_of_seasons} Season(s)</p>
+              <p>{media.number_of_episodes} Episode(s)</p>
+            </div>
+          ): (
+            null
+          )}
           <p className="text-white/50 text-left text-xs sm:text-md md:text-lg w-[90%] sm:w-full break-words">{media.overview}</p>
-          <div className="flex flex-col text-white/70 pt-2 space-y-2 text-sm sm:text-md">
+          
+          <div className="flex flex-col text-white/70 pt-2 space-y-2 text-xs sm:text-md md:text-lg">
             <p>Type: {mediaType.toUpperCase()}</p>
-            <div className="flex space-x-1 text-xs w-[90%] sm:w-full sm:space-x-2 sm:text-sm md:text-md">
+            <div className="flex space-x-1 w-[90%] sm:w-full sm:space-x-2">
               <p>Genre: </p>
               {media.genres.map((genre: any) => (
                 <p>{genre.name}</p>

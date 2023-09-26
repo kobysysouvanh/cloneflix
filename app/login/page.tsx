@@ -1,20 +1,23 @@
 "use client";
 
 import Input from "@/components/Input";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { signIn, signOut } from "next-auth/react";
-import { useCallback } from "react";
 
 const LoginPage = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  
+  const { data: session } = useSession()
+
+  if(session) {
+    router.push("/")
+  }
+
 
   const login = async () => {
-
     const signInResponse = await signIn("credentials", {
       email: email,
       password: password,

@@ -5,18 +5,18 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 interface IUseFavorite {
-  itemId: number;
+  mediaId: number;
   currentUser?: SafeUser | null;
 }
 
-const useFavorite = ({ itemId, currentUser }: IUseFavorite) => {
+const useFavorite = ({ mediaId, currentUser }: IUseFavorite) => {
   const router = useRouter();
 
   const hasFavorited = useMemo(() => {
     const list = currentUser?.favorites || [];
 
-    return list.includes(itemId);
-  }, [currentUser, itemId]);
+    return list.includes(mediaId);
+  }, [currentUser, mediaId]);
 
   const toggleFavorite = useCallback(
     async (e: React.MouseEvent<HTMLDivElement>) => {
@@ -26,12 +26,12 @@ const useFavorite = ({ itemId, currentUser }: IUseFavorite) => {
         let request;
 
         if (hasFavorited) {
-          request = () => axios.delete("/api/favorites", { data: { itemId } });
+          request = () => axios.delete("/api/favorites", { data: { mediaId } });
           await request();
           toast.success("Removed from Watch List!");
           return router.refresh()
         } else {
-          request = () => axios.post("/api/favorites", { itemId });
+          request = () => axios.post("/api/favorites", { mediaId });
         }
 
         await request();
@@ -41,7 +41,7 @@ const useFavorite = ({ itemId, currentUser }: IUseFavorite) => {
         return toast.error("Something went wrong.");
       }
     },
-    [currentUser, hasFavorited, itemId]
+    [currentUser, hasFavorited, mediaId]
   );
 
   return {

@@ -6,10 +6,10 @@ export async function POST(req: Request) {
   try {
     const currentUser = await getCurrentUser();
     const body = await req.json();
-    const { itemId } = body;
+    const { mediaId } = body;
 
     if (!currentUser) return NextResponse.error();
-    if (!itemId) throw new Error("Invalid id");
+    if (!mediaId) throw new Error("Invalid id");
 
     const user = await prismadb.user.update({
       where: {
@@ -17,7 +17,7 @@ export async function POST(req: Request) {
       },
       data: {
         favorites: {
-          push: itemId,
+          push: mediaId,
         },
       },
     });
@@ -32,14 +32,14 @@ export async function POST(req: Request) {
 export async function DELETE(req: Request) {
   const currentUser = await getCurrentUser();
   const body = await req.json();
-  const { itemId } = body;
+  const { mediaId } = body;
 
   if (!currentUser) return NextResponse.error();
-  if (!itemId) throw new Error("Invalid ID");
+  if (!mediaId) throw new Error("Invalid ID");
 
   let favorites = [...(currentUser.favorites || [])];
 
-  favorites = favorites.filter((id) => id !== itemId);
+  favorites = favorites.filter((id) => id !== mediaId);
 
   const user = await prismadb.user.update({
     where: {

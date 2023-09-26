@@ -8,12 +8,15 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import { BsFillPlayFill } from "react-icons/bs";
 import Loading from "./Loading";
 import Navbar from "./Navbar";
+import { useRouter } from "next/navigation";
 
 interface BannerProps {
   data: Media[];
+  type: string
 }
 
-const Banner: React.FC<BannerProps> = ({ data }) => {
+const Banner: React.FC<BannerProps> = ({ data, type }) => {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(true);
   const [banner, setBanner] = useState<Media>();
 
@@ -27,6 +30,10 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  const handleOnClick = () => {
+    router.push(`/media/${type}/${banner?.id}`)
   }
 
   return (
@@ -50,11 +57,11 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
           {banner?.overview}
         </p>
         <div className="flex relative mt-2 items-center gap-2 md:mt-8 z-30">
-          <button className="flex h-10 w-20 rounded-[4px] bg-white  items-center px-2 hover:opacity-75">
+          <button onClick={handleOnClick} className="flex h-10 w-20 rounded-[4px] bg-white  items-center px-2 hover:opacity-75">
             <BsFillPlayFill className="w-8 h-8" />
             <p className="font-semibold text-xs">Play</p>
           </button>
-          <button className="flex h-10 rounded-[4px] bg-gray-400/50 items-center text-white font-semibold text-xs px-2 hover:opacity-75">
+          <button onClick={handleOnClick} className="flex h-10 rounded-[4px] bg-gray-400/50 items-center text-white font-semibold text-xs px-2 hover:opacity-75">
             <AiOutlineInfoCircle className="w-6 h-6 mr-2" />
             <p className="font-semibold text-xs">More Info</p>
           </button>

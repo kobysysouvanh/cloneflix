@@ -95,7 +95,7 @@ export const getTopRatedShows = async () => {
   return result.results;
 };
 
-export const getMediaById = async ( mediaId: number, mediaType: string ) => {
+export const getMediaById = async (mediaId: number, mediaType: string) => {
   const options = {
     method: "GET",
     headers: {
@@ -104,17 +104,37 @@ export const getMediaById = async ( mediaId: number, mediaType: string ) => {
     },
   };
 
-   const result = await fetch(
-      `https://api.themoviedb.org/3/${mediaType}/${mediaId}`,
-      options
-    )
-      .then((response) => response.json())
-      .catch((err) => console.error(err));
+  const result = await fetch(
+    `https://api.themoviedb.org/3/${mediaType}/${mediaId}`,
+    options
+  )
+    .then((response) => response.json())
+    .catch((err) => console.error(err));
 
   return result;
 };
 
-export const getTrailerById = async ( mediaId: number, mediaType: string ) => {
+export const getTrailerById = async (mediaId: number, mediaType: string) => {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${API_KEY}`,
+    },
+  };
+  
+
+  const result = await fetch(
+    `https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos`,
+    options
+  )
+    .then((response) => response.json())
+    .catch((err) => console.error(err));
+
+  return result.results.find((item: any) => item.type === "Trailer");
+};
+
+export const getGenreShows = async (genreId: number) => {
   const options = {
     method: "GET",
     headers: {
@@ -123,12 +143,65 @@ export const getTrailerById = async ( mediaId: number, mediaType: string ) => {
     },
   };
 
-   const result = await fetch(
-      `https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos`,
+  const result = await fetch(
+    `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}`,
+    options
+  )
+    .then((response) => response.json())
+    .catch((err) => console.error(err));
+
+  return result.results;
+};
+
+export const getGenreMovies = async (genreId: number) => {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${API_KEY}`,
+    },
+  };
+
+  const result = await fetch(
+    `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}`,
+    options
+  )
+    .then((response) => response.json())
+    .catch((err) => console.error(err));
+
+  return result.results;
+};
+
+export const getMedia = async (mediaId: number) => {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${API_KEY}`,
+    },
+  };
+
+  let result, type;
+
+  try {
+    result = await fetch(
+      `https://api.themoviedb.org/3/tv/${mediaId}?language=en-US`,
       options
     )
-      .then((response) => response.json())
-      .catch((err) => console.error(err));
+    .then((response) => response.json())
 
-  return result.results.find((item: any) => item.type === "Trailer");
+    if(result.success == false) {
+      throw new Error()
+    }
+
+    return [result, type="tv"]
+  } catch  {
+    result = await fetch(
+      `https://api.themoviedb.org/3/movie/${mediaId}?language=en-US`,
+      options
+    )
+    .then((response) => response.json())
+
+    return [result, type="movie"]
+  }
 };
