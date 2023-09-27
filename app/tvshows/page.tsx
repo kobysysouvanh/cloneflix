@@ -33,7 +33,6 @@ const TVShowsPage = async () => {
 
   return (
     <>
-      <Navbar />
       <Banner data={trendingShows} type="tv" />
       <Row
         title="Trending Now"

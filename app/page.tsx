@@ -25,7 +25,6 @@ const Home = async () => {
 
   return (
     <>
-      <Navbar />
       <Banner data={trendingMovies} type="movie" />
       <Row title="Trending Movies" id="Trending Movies" type="movie" data={trendingMovies} />
       <Row title="Popular Movies" id="Popular Movies" type="movie" data={popularMovies} />

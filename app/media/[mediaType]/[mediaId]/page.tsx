@@ -4,6 +4,7 @@ import React from "react"
 import MediaPageClient from '@/components/MediaPageClient';
 import getCurrentUser from '@/actions/getCurrentUser';
 import Navbar from '@/components/Navbar';
+import { redirect } from 'next/navigation';
 
 interface MediaPageProps {
   mediaId: number
@@ -11,9 +12,14 @@ interface MediaPageProps {
 }
 
 const MediaPage = async ({ params } : { params: MediaPageProps}) => {
+  const currentUser = await getCurrentUser()
+
+  if (currentUser == null) {
+    redirect("/login")
+  }
+
   const media = await getMediaById(params.mediaId, params.mediaType)
   const trailer = await getTrailerById(params.mediaId, params.mediaType)
-  const currentUser = await getCurrentUser()
 
   return (
     <>

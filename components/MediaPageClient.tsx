@@ -79,7 +79,9 @@ const MediaPageClient: React.FC<MediaPageClientProps> = ({
               <p>{media.number_of_episodes} Episode(s)</p>
             </div>
           ): (
-            null
+            <div className="flex text-white opacity-70 items-center space-x-2 text-xs sm:text-base lg:text-lg">
+              <p>{media.runtime} mins</p>
+            </div>
           )}
           <p className="text-white/50 text-left text-xs sm:text-md md:text-lg w-[90%] sm:w-full break-words">{media.overview}</p>
           

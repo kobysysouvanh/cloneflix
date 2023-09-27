@@ -1,14 +1,13 @@
 "use client";
 
-import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { BiBell } from "react-icons/bi";
-import { IoSearchOutline } from "react-icons/io5";
 import AccountMenu from "./AccountMenu";
 import MobileMenu from "./MobileMenu";
 import NavbarItem from "./NavbarItem";
-import Link from "next/link";
+import Search from "./Search";
 
 const NavbarBackground = 66;
 
@@ -95,10 +94,8 @@ const Navbar = () => {
           <AiFillCaretDown className="text-white" />
           <MobileMenu visible={showMobileMenu} />
         </div>
-        <div className="flex ml-auto gap-3">
-          <div>
-            <IoSearchOutline className="text-white h-7 w-7 cursor-pointer" />
-          </div>
+        <div className="flex ml-auto gap-3 items-center">
+          <Search />
           <div>
             <BiBell className="text-white h-7 w-7 cursor-pointer" />
           </div>
