@@ -8,6 +8,7 @@ import AccountMenu from "./AccountMenu";
 import MobileMenu from "./MobileMenu";
 import NavbarItem from "./NavbarItem";
 import Search from "./Search";
+import Image from "next/image";
 
 const NavbarBackground = 66;
 
@@ -75,7 +76,7 @@ const Navbar = () => {
         }`}
       >
         <Link href="/">
-          <img src="/logo.png" alt="logo" className="w-[18vw] max-w-[120px]" />
+          <Image src="/logo.png" alt="logo" width="120" height="30"className="object-contain" />
         </Link>
         <div className="ml-8 gap-5 hidden lg:flex lg:text-sm">
           {routes.map((route) => (
@@ -104,7 +105,7 @@ const Navbar = () => {
             className="flex items-center cursor-pointer gap-2"
           >
             <div className="h-7 w-7 rounded-[4px] overflow-hidden">
-              <img src="/defaultpfp.jpg" alt="user profile picture" />
+              <Image src="/defaultpfp.jpg" alt="user profile picture" height={30}  width={30} className="object-contain"/>
             </div>
             <AiFillCaretDown
               className={`text-white transition duration-300 hidden sm:inline ${

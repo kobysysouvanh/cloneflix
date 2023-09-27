@@ -26,7 +26,7 @@ const Banner: React.FC<BannerProps> = ({ data, type }) => {
     setBanner(data[Math.floor(Math.random() * data.length)]);
 
     setIsLoading(false);
-  }, []);
+  }, [data]);
 
   if (isLoading) {
     return <Loading />;

@@ -18,11 +18,11 @@ const ListPage = async () => {
   return (
     <>
       <Navbar />
-      <div className="px-4 pb-4 sm:px-16 absolute top-20">
+      <div className="px-4 pb-4 sm:px-16 absolute top-20 w-full">
         <h1 className="text-3xl text-white py-2">My List</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {favorites.map((mediaItem: any) => (
-            <RowItem data={mediaItem[0]} type={mediaItem[1]} currentUser={currentUser} />
+            <RowItem key={mediaItem[0]} data={mediaItem[0]} type={mediaItem[1]} currentUser={currentUser} />
           ))}
         </div>
       </div>

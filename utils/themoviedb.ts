@@ -1,3 +1,5 @@
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 export const getTrendingMovies = async () => {
@@ -122,7 +124,6 @@ export const getTrailerById = async (mediaId: number, mediaType: string) => {
       Authorization: `Bearer ${API_KEY}`,
     },
   };
-  
 
   const result = await fetch(
     `https://api.themoviedb.org/3/${mediaType}/${mediaId}/videos`,
@@ -187,21 +188,42 @@ export const getMedia = async (mediaId: number) => {
     result = await fetch(
       `https://api.themoviedb.org/3/tv/${mediaId}?language=en-US`,
       options
-    )
-    .then((response) => response.json())
+    ).then((response) => response.json());
 
-    if(result.success == false) {
-      throw new Error()
+    if (result.success == false) {
+      throw new Error();
     }
 
-    return [result, type="tv"]
-  } catch  {
+    return [result, (type = "tv")];
+  } catch {
     result = await fetch(
       `https://api.themoviedb.org/3/movie/${mediaId}?language=en-US`,
       options
-    )
-    .then((response) => response.json())
+    ).then((response) => response.json());
 
-    return [result, type="movie"]
+    return [result, (type = "movie")];
   }
+};
+
+export const getMediaBySearch = async (search: string | string[], type: string) => {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${API_KEY}`,
+    },
+  };
+
+  let result;
+  console.log(search)
+
+  try {
+    result = await fetch(
+      `https://api.themoviedb.org/3/search/${type}?&include_adult=false&language=en-US&query=${search}`,
+      options
+    ).then((response) => response.json());
+
+
+    return result.results;
+  } catch {}
 };

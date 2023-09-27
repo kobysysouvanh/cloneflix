@@ -90,7 +90,7 @@ const MediaPageClient: React.FC<MediaPageClientProps> = ({
             <div className="flex space-x-1 w-[90%] sm:w-full sm:space-x-2">
               <p>Genre: </p>
               {media.genres.map((genre: any) => (
-                <p>{genre.name}</p>
+                <p key={genre.name}>{genre.name}</p>
               ))}
             </div>
             <p>Release: {media.first_air_date || media.release_date}</p>

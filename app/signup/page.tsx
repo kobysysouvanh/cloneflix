@@ -4,6 +4,7 @@ import Input from "@/components/Input";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import axios from "axios"
+import Image from "next/image";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -23,13 +24,13 @@ const SignUpPage = () => {
       console.log(error)
       setError("Email is taken.")
     }
-  }, [email, password])
+  }, [email, password, router])
 
   return (
     <div className="relative h-full w-full bg-[url('/hero.jpg')] bg-no-repeat bg-fixed bg-center bg-cover">
       <div className="bg-black w-full h-full md:bg-opacity-50">
         <nav className="px-8 py-4">
-          <img src="/logo.png" alt="logo" className="h-14" />
+        <Image src="/logo.png" alt="logo" height={100} width={180} className="object-contain" />
         </nav>
         <div className="flex justify-center">
           <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 md:w-2/5 md:max-w-md rounded-md w-full">
